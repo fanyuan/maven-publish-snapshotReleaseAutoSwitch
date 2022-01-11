@@ -58,7 +58,14 @@ publishing {
             artifactId = 'maven-sample'
             version = versionString//'1.6.2-SNAPSHOT'
 
-            artifact('build/outputs/aar/demo01-debug.aar')
+            if(versionString.endsWith("-SNAPSHOT")){
+                println "快照版本发布任务，SNAPSHOT task is running"
+                artifact('build/outputs/aar/demo01-debug.aar')
+            }else {
+                println "非快照版本发布任务，not SNAPSHOT task is running"
+                artifact("$buildDir/outputs/aar/demo01-release.aar")
+            }
+
             //from components.java
         }
     }
